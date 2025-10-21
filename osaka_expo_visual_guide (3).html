@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>万博映像技術の進化系譜</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Kaisei Decol', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
+            color: #333;
+            line-height: 1.8;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(76, 175, 80, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4CAF50 0%, #009688 100%);
+            color: #333;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, #FAFAFA 0%, #F0F8F0 100%);
+            border-left: 6px solid #4CAF50;
+            border-radius: 12px;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+        
+        .icon {
+            font-size: 1.5em;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .subsection {
+            margin-top: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #9575CD;
+        }
+        
+        .subsection-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #4CAF50;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .subsection-content {
+            color: #555;
+            margin-top: 10px;
+            font-size: 1em;
+            line-height: 1.7;
+        }
+        
+        .key-point {
+            background: linear-gradient(90deg, #FFC107 0%, #FFD54F 100%);
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #333;
+            font-weight: 600;
+            border-left: 4px solid #E91E63;
+        }
+        
+        .info-box {
+            background: linear-gradient(90deg, #E3F2FD 0%, #F1F8E9 100%);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #333;
+            border-left: 4px solid #009688;
+        }
+        
+        .timeline-vertical {
+            position: relative;
+            padding-left: 40px;
+            margin: 30px 0;
+        }
+        
+        .timeline-vertical::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #4CAF50 0%, #FFC107 50%, #E91E63 100%);
+        }
+        
+        .timeline-entry {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .timeline-entry::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            background: #4CAF50;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #4CAF50;
+        }
+        
+        .timeline-year {
+            font-weight: 700;
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            color: #555;
+        }
+        
+        .innovation-badge {
+            display: inline-block;
+            background: #FFC107;
+            color: #333;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+        
+        .expo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        
+        .expo-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-top: 4px solid #4CAF50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .expo-year {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #4CAF50;
+            margin-bottom: 8px;
+        }
+        
+        .expo-name {
+            font-size: 1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .expo-detail {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, #4CAF50 0%, #81C784 100%);
+            color: #333;
+            padding: 16px;
+            font-weight: 600;
+            text-align: left;
+        }
+        
+        .comparison-table td {
+            padding: 16px;
+            border-bottom: 1px solid #E0E0E0;
+            color: #555;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #F9F9F9;
+        }
+        
+        .flow-diagram {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .highlight-concept {
+            background: linear-gradient(90deg, #FFE082 0%, #FFD54F 100%);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .creator-box {
+            background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);
+            padding: 16px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .creator-name {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .creator-work {
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #f0f4ff 0%, #f0fff4 100%);
+            padding: 30px 40px;
+            text-align: center;
+            border-top: 2px solid #E0E0E0;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'base',
+                securityLevel: 'loose',
+                fontFamily: '"Kaisei Decol", sans-serif',
+                themeVariables: {
+                    primaryColor: '#4CAF50',
+                    primaryTextColor: '#333',
+                    primaryBorderColor: '#9575CD',
+                    lineColor: '#009688',
+                    secondaryColor: '#FFC107',
+                    tertiaryColor: '#E91E63'
+                },
+                flowchart: {
+                    cornerRadius: 15,
+                    curve: 'cardinal',
+                    htmlLabels: true
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 万博における映像技術の進化系譜</h1>
+            <p>モントリオール万博→大阪万博→筑波万博→愛知万博まで</p>
+        </div>
+        
+        <div class="content">
+            <!-- セクション1: モントリオール万博 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🌍</span>
+                    <span>モントリオール万博（1967年）</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">📊</span>
+                        <span>基本情報</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>開催時期：</strong> 大阪万博の3年前<br>
+                        <strong>来場者数：</strong> 約5000万人<br>
+                        <strong>評価：</strong> 万博史上での大成功
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🎪</span>
+                        <span>会場規模と設備</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>特徴：</strong> 相当広大な敷地での開催<br>
+                        <strong>交通網：</strong> モノレール的な鉄道システムで会場を輸送でネットワーク<br>
+                        <strong>効果：</strong> 大規模敷地を有機的に繋ぐインフラストラクチャー
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🎬</span>
+                        <span>注目映像作品</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>主要作品：</strong><br>
+                        • In the Labyrinth（迷宮の中へ）<br>
+                        • The Place to Stand<br>
+                        • Polar Life<br>
+                        <br>
+                        <strong>評価：</strong> 当時の映像マニアの間では知名度高い<br>
+                        ただし、一般認知は低い
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🎯 「映像の歴史的挑戦」として記録されるべき作品群
+                </div>
+            </div>
+            
+            <!-- セクション2: 大阪万博1970年 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🇯🇵</span>
+                    <span>大阪万博（1970年）- 映像技術の成熟</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🗼</span>
+                        <span>太陽の塔と象徴性</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>設計者：</strong> 岡本太郎<br>
+                        <strong>当初計画：</strong> 「万博タワー」が象徴だった<br>
+                        <strong>存続の経緯：</strong> 一人の少年の手紙により、永久保存が決定<br>
+                        <br>
+                        <strong>意味：</strong> 大屋根の「統一と均衡」を突き抜ける存在<br>
+                        → 岡本太郎の前衛的思想を象徴
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">📹</span>
+                        <span>マルチスクリーン技術の出現</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>技術革新：</strong> モントリオール万博から大阪万博で成熟<br>
+                        <strong>形態：</strong> 複数スクリーン（6面・8面など）での同期映像表現<br>
+                        <br>
+                        <strong>その後のレガシー：</strong><br>
+                        → 博物館などで長年採用され続ける<br>
+                        → 地方の築年数の長い施設に現存する例も多数
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🎥</span>
+                        <span>日本館の技術的挑戦</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>監督：</strong> 市川崑、安坂村（撮影者）<br>
+                        <strong>挑戦内容：</strong> マルチスクリーン撮影用に、総重量380kgのカメラ8台を車に搭載<br>
+                        <br>
+                        <strong>意味：</strong> 現代人が容易に映像制作する背景には、こうした歴史的挑戦がある
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    📚 <strong>当時の記録：</strong> 通商産業省（現経産省）のレポートに詳細が記載<br>
+                    →見たことなくても「想像できる」素晴らしい文章として価値がある
+                </div>
+                
+                <div class="key-point">
+                    🎬 過去の挑戦を知ることで、現在の映像技術の進化が理解できる
+                </div>
+            </div>
+            
+            <!-- セクション3: 筑波万博1985年 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🔬</span>
+                    <span>筑波万博（1985年）- 3D映像技術の誕生</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🎭</span>
+                        <span>来場者の世代変化</span>
+                    </div>
+                    <div class="subsection-content">
+                        大阪万博の15年後。実際に訪問した来場者も出始める時代
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🎮</span>
+                        <span>3D眼鏡（アナグリフメガネ）の登場</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>発明者：</strong> ローマン・クローター（IMAXの設立創設者）<br>
+                        <strong>作品：</strong> 富士パビリオンでのスクリーン体験<br>
+                        <br>
+                        <strong>社会的影響：</strong><br>
+                        → 90年代の子どもたちがアナグリフメガネを経験<br>
+                        → 「3D映像を見るには特殊な眼鏡が必要」という認識の定着
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🌐</span>
+                        <span>ドームスクリーンの価値発見</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>問題：</strong> 平面スクリーンだと、死角が生じてしまう<br>
+                        <strong>解決：</strong> ドーム形スクリーンで全体を視野に収める<br>
+                        <strong>効果：</strong> より没入的で、360度的な視聴体験
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🎯 「見えない部分をなくす」という単純だが革新的な発見
+                </div>
+            </div>
+            
+            <!-- セクション4: 花の万博1990年 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🌸</span>
+                    <span>花の万博（1990年・大阪近郊）- 伝説的映像</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🎬</span>
+                        <span>富士パビリオンの伝説</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>特徴：</strong> 筑波万博に続き、富士パビリオンで伝説的映像作品を展示<br>
+                        <strong>意義：</strong> 万博が映像芸術の重要なプラットフォームであることを再証明
+                    </div>
+                </div>
+            </div>
+            
+            <!-- セクション5: 愛知万博2005年 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🤖</span>
+                    <span>愛知万博（2005年）- メディアアート確立</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">📊</span>
+                        <span>基本情報</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>来場者経験：</strong> 当時、複数回（3回以上）来場した人も存在<br>
+                        <strong>映像体験：</strong> 現場での体験と、後のYouTube視聴の並行
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🎨</span>
+                        <span>イマーシャルパノラマ技術</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>技術：</strong> 全周映像表現（360度ではなく、広角パノラマ）<br>
+                        <strong>特徴：</strong> あらゆる角度からあらゆる映像を体験可能<br>
+                        <strong>革新性：</strong> 当時として画期的な没入体験
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🗿</span>
+                        <span>フィジカルとデジタルの融合</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>彫像数：</strong> 134体の彫像をフィジカルに配置<br>
+                        <strong>映像連携：</strong> 映像と彫像が空間内で同期<br>
+                        <strong>効果：</strong> 「新しいメディアアート」としての成立
+                    </div>
+                </div>
+                
+                <div class="creator-box">
+                    <div class="creator-name">🎬 制作チーム</div>
+                    <div class="creator-work">
+                        <strong>映像監督：</strong> 押井守（『ゴーストインザシェル』『パトレイバー2』『イノセンス』）<br>
+                        <strong>音楽：</strong> 河合賢治<br>
+                        <br>
+                        → 両者ともに映像・音響表現の第一人者
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🔄</span>
+                        <span>革新的な展示デザイン：「コンテンツの動的変化」</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>これまでの万博：</strong> 固定されたコンテンツを展示<br>
+                        <strong>愛知万博での工夫：</strong> <span class="highlight-concept">2ヶ月ごとに映像が変わる</span><br>
+                        <br>
+                        <strong>意義：</strong><br>
+                        → 万博会期中に新しい体験が生まれる<br>
+                        → リピート来場の動機づけ<br>
+                        → 当時としては珍しい試み（現在は当たり前）
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🎯 「固定から動的へ」：展示コンテンツそのものが進化する万博へ
+                </div>
+            </div>
+            
+            <!-- セクション6: 映像技術進化のタイムライン -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📈</span>
+                    <span>万博映像技術の進化系譜</span>
+                </div>
+                
+                <div class="flow-diagram">
+                    <div class="mermaid">
+                        timeline
+                            title 万博における映像技術の進化
+                            1967 : モントリオール万博
+                                 : 映像作品の実験的チャレンジ
+                            1970 : 大阪万博
+                                 : マルチスクリーン技術の成熟
+                                 : 複数カメラシステムの実装
+                            1985 : 筑波万博
+                                 : 3D眼鏡（アナグリフ）登場
+                                 : ドームスクリーンの導入
+                            1990 : 花の万博
+                                 : 伝説的映像作品の継続
+                            2005 : 愛知万博
+                                 : メディアアート確立
+                                 : イマーシャルパノラマ技術
+                                 : コンテンツの動的変化
+                            2025 : 大阪関西万博
+                                 : ゲザムトクンストベルク実現
+                                 : 生成AI × 総合芸術
+                                 : 世界初規模の統合表現
+                    </div>
+                </div>
+            </div>
+            
+            <!-- セクション7: レガシー概念 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🎁</span>
+                    <span>万博の本質的価値：「レガシーの継承」</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">❓</span>
+                        <span>「万博の成功/失敗」を語ることの意味</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>従来的評価：</strong> 来場者数や経済効果で判断<br>
+                        <strong>本質的評価：</strong> その後、社会にどう継承されるか
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">💫</span>
+                        <span>レガシーとしての継続性</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>事例：マルチスクリーン技術</strong><br>
+                        → 大阪万博（1970年）で展示<br>
+                        → 以降、数年〜10年単位で様々な施設に波及<br>
+                        → 現在も地方の博物館に残存<br>
+                        <br>
+                        <strong>事例：3D映像表現</strong><br>
+                        → 筑波万博（1985年）で導入<br>
+                        → 90年代の子どもたちが経験<br>
+                        → 映像文化の一部として定着
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🌟 「5年後、10年後に『あれがあったね』と語り継ぐこと」がレガシー
+                </div>
+                
+                <div class="info-box">
+                    💡 <strong>本質的な成功とは：</strong><br>
+                    成功/失敗を語ること自体が愚か。<br>
+                    その代わり、どう継承されるか、語り継がれるかが重要。<br>
+                    それが次の世代の万博へと繋がる。
+                </div>
+            </div>
+            
+            <!-- セクション8: 2025年大阪関西万博への示唆 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🚀</span>
+                    <span>制約条件下での最適化：現代の万博制作</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">📏</span>
+                        <span>制約の構造</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>パビリオンの存在：</strong> 建築空間がすでに確定している<br>
+                        <strong>フォーマットの固定：</strong> その制約内での最適化が必須<br>
+                        <br>
+                        <strong>課題：</strong> 既存の「箱」を如何に活かすか
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🎯 制約 = 創造性の源泉。制約の中にこそ、新しい表現が生まれる
+                </div>
+            </div>
+            
+            <!-- セクション9: 比較表：各万博の特徴 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📊</span>
+                    <span>各万博の映像技術比較</span>
+                </div>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>万博</th>
+                        <th>年</th>
+                        <th>革新技術</th>
+                        <th>後世への影響</th>
+                    </tr>
+                    <tr>
+                        <td><strong>モントリオール</strong></td>
+                        <td>1967</td>
+                        <td>映像作品の実験的挑戦</td>
+                        <td>映像マニアに知られる</td>
+                    </tr>
+                    <tr>
+                        <td><strong>大阪</strong></td>
+                        <td>1970</td>
+                        <td>マルチスクリーン成熟</td>
+                        <td>博物館等に長年採用</td>
+                    </tr>
+                    <tr>
+                        <td><strong>筑波</strong></td>
+                        <td>1985</td>
+                        <td>3D眼鏡・ドームスクリーン</td>
+                        <td>90年代子どもたちが経験</td>
+                    </tr>
+                    <tr>
+                        <td><strong>花の万博</strong></td>
+                        <td>1990</td>
+                        <td>伝説的映像作品</td>
+                        <td>映像アート文化の継続</td>
+                    </tr>
+                    <tr>
+                        <td><strong>愛知</strong></td>
+                        <td>2005</td>
+                        <td>メディアアート + 動的コンテンツ</td>
+                        <td>現代展示文化の確立</td>
+                    </tr>
+                    <tr>
+                        <td><strong>大阪関西</strong></td>
+                        <td>2025</td>
+                        <td>ゲザムトクンストベルク + 生成AI</td>
+                        <td>次世代映像文化の創造</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- セクション10: 映像史の継承 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📚</span>
+                    <span>映像史の「知識継承」の重要性</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🔍</span>
+                        <span>なぜ過去を知る必要があるのか</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>現在の容易さ：</strong> 生成AIで簡単に映像が作れる時代<br>
+                        <br>
+                        <strong>しかし実は：</strong><br>
+                        → 380kg のカメラ8台を搭載して撮影した時代<br>
+                        → アナグリフメガネで3Dを体験した時代<br>
+                        → ドームスクリーンに感動した時代<br>
+                        <br>
+                        <strong>意味：</strong> そうした挑戦と工夫が、現在の「当たり前」を作った
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🎬 現在の便利さの根底には、過去の多大な工夫がある
+                </div>
+                
+                <div class="info-box">
+                    📖 <strong>推奨：通商産業省レポートの閲読</strong><br>
+                    当時の制作背景や技術的工夫を記した歴史的文献として高い価値がある
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🎬 この図解は、モントリオール万博（1967）から大阪関西万博（2025）に至る、</p>
+            <p>映像技術とメディアアート表現の進化系譜を解説したものです。</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">各万博で生まれた技術と表現が、社会に継承され、次世代へと繋がっていく。それがレガシーの本質。</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コンセプトデザイン方法論 - 構造・思想・文脈</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Kaisei Decol', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
+            color: #333;
+            line-height: 1.8;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(76, 175, 80, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4CAF50 0%, #009688 100%);
+            color: #333;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, #FAFAFA 0%, #F0F8F0 100%);
+            border-left: 6px solid #4CAF50;
+            border-radius: 12px;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+        
+        .icon {
+            font-size: 1.5em;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .subsection {
+            margin-top: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #9575CD;
+        }
+        
+        .subsection-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #4CAF50;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .subsection-content {
+            color: #555;
+            margin-top: 10px;
+            font-size: 1em;
+            line-height: 1.7;
+        }
+        
+        .key-point {
+            background: linear-gradient(90deg, #FFC107 0%, #FFD54F 100%);
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #333;
+            font-weight: 600;
+            border-left: 4px solid #E91E63;
+        }
+        
+        .info-box {
+            background: linear-gradient(90deg, #E3F2FD 0%, #F1F8E9 100%);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #333;
+            border-left: 4px solid #009688;
+        }
+        
+        .three-pillar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 20px 0;
+        }
+        
+        .pillar {
+            padding: 24px;
+            border-radius: 10px;
+            text-align: center;
+            color: #333;
+        }
+        
+        .pillar-1 {
+            background: linear-gradient(135deg, #81C784 0%, #A5D6A7 100%);
+        }
+        
+        .pillar-2 {
+            background: linear-gradient(135deg, #64B5F6 0%, #90CAF9 100%);
+        }
+        
+        .pillar-3 {
+            background: linear-gradient(135deg, #FFD54F 0%, #FFEB99 100%);
+        }
+        
+        .pillar-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .pillar-subtitle {
+            font-size: 0.95em;
+            margin-bottom: 12px;
+            opacity: 0.9;
+        }
+        
+        .pillar-content {
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        
+        .comparison-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        
+        .comparison-item {
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .comparison-wrong {
+            background: linear-gradient(135deg, #FFCDD2 0%, #EF9A9A 100%);
+            border-left: 4px solid #E91E63;
+        }
+        
+        .comparison-right {
+            background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%);
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .comparison-title {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .comparison-content {
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        
+        .definition-box {
+            background: linear-gradient(135deg, #F3E5F5 0%, #FCE4EC 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #9575CD;
+        }
+        
+        .definition-title {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+        
+        .definition-content {
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #f0f4ff 0%, #f0fff4 100%);
+            padding: 30px 40px;
+            text-align: center;
+            border-top: 2px solid #E0E0E0;
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .quote-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #4CAF50;
+            margin: 20px 0;
+            font-style: italic;
+            color: #555;
+        }
+        
+        .centerpiece {
+            background: linear-gradient(135deg, #FFF9C4 0%, #FFEB3B 100%);
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 30px 0;
+            border: 3px solid #F57F17;
+        }
+        
+        .centerpiece-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        
+        .centerpiece-content {
+            font-size: 1.1em;
+            color: #333;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'base',
+                securityLevel: 'loose',
+                fontFamily: '"Kaisei Decol", sans-serif',
+                themeVariables: {
+                    primaryColor: '#4CAF50',
+                    primaryTextColor: '#333',
+                    primaryBorderColor: '#9575CD',
+                    lineColor: '#009688',
+                    secondaryColor: '#FFC107',
+                    tertiaryColor: '#E91E63'
+                },
+                flowchart: {
+                    cornerRadius: 15,
+                    curve: 'cardinal',
+                    htmlLabels: true
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>大切にしたもの</h1>
+            <p>コンセプトデザインの3つの柱：構造・思想・文脈</p>
+        </div>
+        
+        <div class="content">
+            <!-- セクション1: 3つの柱の提示 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🏛️</span>
+                    <span>コンセプトデザインの必須要素</span>
+                </div>
+                
+                <div class="three-pillar">
+                    <div class="pillar pillar-1">
+                        <div class="pillar-title">構造</div>
+                        <div class="pillar-subtitle">どう体験させるか</div>
+                        <div class="pillar-content">
+                            空間、映像、音響、動線など、観客がどのような経路で、どのような順序で、何を体験するのかの全体設計
+                        </div>
+                    </div>
+                    <div class="pillar pillar-2">
+                        <div class="pillar-title">思想</div>
+                        <div class="pillar-subtitle">何を問うのか</div>
+                        <div class="pillar-content">
+                            その作品を通じて、観客に何を考えさせるのか、どのような問いを投げかけるのか
+                        </div>
+                    </div>
+                    <div class="pillar pillar-3">
+                        <div class="pillar-title">文脈</div>
+                        <div class="pillar-subtitle">なぜ今ここでなのか</div>
+                        <div class="pillar-content">
+                            歴史的背景、社会的状況、技術的発展など、この作品が今この瞬間に存在する必然性
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🎯 この3つが揃ってはじめてコンセプトが成立する。どれか一つ欠けたら失敗する。
+                </div>
+            </div>
+            
+            <!-- セクション2: 各要素の詳細 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📋</span>
+                    <span>3つの柱の具体的内容</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🏗️</span>
+                        <span>構造（どう体験させるか）</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>実装レベルの設計：</strong><br>
+                        • パビリオンの空間設計<br>
+                        • 映像の270度投影<br>
+                        • 音響のタイミング制御<br>
+                        • 観客の動線管理<br>
+                        • 時間的フロー構成<br>
+                        <br>
+                        → 「感覚的な経験」を物理的に設計する
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">💭</span>
+                        <span>思想（何を問うのか）</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>哲学的レベルの設定：</strong><br>
+                        • 人とAIの関係をどう再定義するのか<br>
+                        • 生命とは何か（命輝く未来社会）<br>
+                        • 技術と人間性の関係<br>
+                        • 個と全の相互関係<br>
+                        <br>
+                        → 観客に「考えさせる」ための問い設定
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">📚</span>
+                        <span>文脈（なぜ今ここでなのか）</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>歴史的・社会的レベルの背景：</strong><br>
+                        • 万博映像の55年の歴史（1967-2025）<br>
+                        • AI技術の急速な発展<br>
+                        • トランスヒューマニズムとポストヒューマニズムの台頭<br>
+                        • 「命輝く未来社会デザイン」というテーマの出現<br>
+                        <br>
+                        → 「なぜこの瞬間に必然なのか」を示す
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    🔗 <strong>統合的理解：</strong><br>
+                    この3つは分離ではなく、相互に強化し合う関係にある
+                </div>
+            </div>
+            
+            <!-- セクション3: 情報量の圧縮 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📊</span>
+                    <span>100の情報を1つの形に：コンセプトデザインの圧縮力</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🔍</span>
+                        <span>万博という複雑な現象の見方</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>万博とは何か、という複数の視点：</strong><br>
+                        • 国家発揚の場（政治的視点）<br>
+                        • 人間社会の在り方を問う場（人文学的視点）<br>
+                        • 祝祭（文化人類学的視点）<br>
+                        • 地球環境の未来を問う場（環境学的視点）<br>
+                        • 映像・技術の歴史（芸術・科学的視点）<br>
+                        • ヒューマニズムからトランスヒューマニズムへの移行期（哲学的視点）<br>
+                        <br>
+                        → これらすべてが「100の情報」に該当する
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">⚙️</span>
+                        <span>圧縮のプロセス</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>1. 複数の視点から情報収集</strong><br>
+                        政治、文化、技術、哲学、歴史などの多領域から学ぶ<br>
+                        <br>
+                        <strong>2. 要素の抽出と整理</strong><br>
+                        100の情報から「本質的な要素」を抽出<br>
+                        <br>
+                        <strong>3. 統合と表現</strong><br>
+                        それらを「一つの感覚体験」に圧縮して表現<br>
+                        <br>
+                        <strong>結果：</strong> 観客は複雑さを感じさせられずに、深い理解に到達
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    💎 複雑性を保ったまま圧縮する = 高度な知的作業
+                </div>
+            </div>
+            
+            <!-- セクション4: 知識の内在化 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🧠</span>
+                    <span>「知識を自分のものにする」という覚悟</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">⚠️</span>
+                        <span>AIに頼ることの危険性</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>AIの利便性：</strong><br>
+                        生成AIで素早く情報を取得できる<br>
+                        <br>
+                        <strong>しかし：</strong><br>
+                        AIが出した情報を「自分の言葉のように」話すのは危険<br>
+                        → それは「理解」ではなく「引用」に過ぎない
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">📖</span>
+                        <span>この講演における戦略</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>「Notion」や「Obsidian」などは一切使用しない</strong><br>
+                        <br>
+                        <strong>理由：</strong><br>
+                        ナレッジデータベースに頼ると、「知識が外在化」してしまう<br>
+                        <br>
+                        <strong>代わりに：</strong><br>
+                        「頭の中に叩き込む」ことで、真に「自分のもの」にする<br>
+                        <br>
+                        <strong>そうしてはじめて：</strong><br>
+                        「なぜあの瞬間あれなのか」「これはこれなんです」と<br>
+                        裏打ちされた知識をさらっと説明できる
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">✅</span>
+                        <span>AIの活用方法</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>適切な使い方：</strong><br>
+                        • 素早く要点をつかむ（SSI利用）<br>
+                        • ファクトチェック（3～4回実施）<br>
+                        • 文献の確認（実際に読んで納得する）<br>
+                        <br>
+                        <strong>その後：</strong><br>
+                        得た情報を「完全に内在化」してからアウトプット
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🎯 知識 = 自分の血肉化してこそ、初めて言語化できる
+                </div>
+            </div>
+            
+            <!-- セクション5: 万博のテーマ解読 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🌍</span>
+                    <span>万博テーマ「命輝く未来社会デザイン」の哲学的読解</span>
+                </div>
+                
+                <div class="centerpiece">
+                    <div class="centerpiece-title">命輝く未来社会デザイン</div>
+                    <div class="centerpiece-content">
+                        トランスヒューマニズム × ポストヒューマニズム
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🤔</span>
+                        <span>テーマ解読の複層性</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>大阪関西万博の位置づけ：</strong><br>
+                        <br>
+                        「日本が元気なうちにできる最後の一般博」<br>
+                        ↓<br>
+                        「AI時代の最初の万博」<br>
+                        ↓<br>
+                        「人力でできる最後の万博」<br>
+                        <br>
+                        → これらは矛盾ではなく、同時に真実
+                    </div>
+                </div>
+                
+                <div class="definition-box">
+                    <div class="definition-title">ポストヒューマニズム（PostHumanism）</div>
+                    <div class="definition-content">
+                        人間中心設計の解体<br>
+                        <br>
+                        これまでの「人間が中心」という前提を問い直し、<br>
+                        人間とAI、人間と機械、人間と自然などの<br>
+                        関係を「平等な関係」として再構築する思想
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🔄</span>
+                        <span>映像制作への適用</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>従来的アプローチ：</strong><br>
+                        「人間のための映像制作」「人間が主人公」<br>
+                        <br>
+                        <strong>AIヒローズコレクション：</strong><br>
+                        「人間とAIが共存する映像制作」<br>
+                        「どちらが主人公でもない共演」
+                    </div>
+                </div>
+            </div>
+            
+            <!-- セクション6: 制作の現実 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">💼</span>
+                    <span>制作の実態：「まとまらないものの中で」</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">📝</span>
+                        <span>理想と現実のギャップ</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>理想：</strong> 完璧に整理された映像<br>
+                        <strong>現実：</strong> 「正直全然まとまりがないもの」<br>
+                        <br>
+                        しかし、それは「人間がなす技」だから当然<br>
+                        → 完璧よりも「誠実さ」が重要
+                    </div>
+                </div>
+                
+                <div class="quote-box">
+                    「100ぐらいの情報を受け取って、全部インプットして、その上で、全部把握した状態で言えるようにしなきゃダメだなっていうのがあって。『なぜあの瞬間あれなんですか？これはこれなんです』ってさらっと言えるみたいなそういうことが大事。」
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🎯</span>
+                        <span>言葉に詰まることの価値</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>許容される不完全さ：</strong><br>
+                        言葉に詰まることはあってもいい<br>
+                        <br>
+                        <strong>許容されない不完全さ：</strong><br>
+                        知識が裏打ちされていない説明<br>
+                        <br>
+                        → 「思考の痕跡」が見える誠実な言語化が重要
+                    </div>
+                </div>
+            </div>
+            
+            <!-- セクション7: 最後の問い -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">❓</span>
+                    <span>最終的な問い系：「何を定義するのか」</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🔑</span>
+                        <span>映像を通じて「問う」こと</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>「何を問う」には複数のレベルがある：</strong><br>
+                        <br>
+                        1. <strong>人とAIの関係をどのように再定義するか</strong><br>
+                        2. <strong>命とは何か、どう定義するか</strong><br>
+                        3. <strong>生命の価値をどう置き直すか</strong><br>
+                        4. <strong>ポストヒューマニズムにおける人間の役割は何か</strong><br>
+                        <br>
+                        → これらの「定義」が、作品の本質を決める
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🎯 映像とは「問い」そのものであり、その問いが作品の芯になる
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🏛️ この図解は、大阪関西万博AIヒローズコレクション制作における</p>
+            <p>「コンセプトデザイン」の本質的な方法論と哲学を解説したものです。</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">構造・思想・文脈の3つの柱が揃ってはじめて、意味のある作品が生まれる。</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">📊 情報量：100 → 1（圧縮） | 知識：外在化 → 内在化（血肉化）</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内と外の境界を溶かす：AI×人間の共演</title>
+    
+    <!-- Mermaid.js の読み込み -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'base',
+                securityLevel: 'loose',
+                fontFamily: '"Segoe UI", "Hiragino Sans", sans-serif',
+                themeVariables: {
+                    primaryColor: '#4CAF50',
+                    primaryTextColor: '#1B5E20',
+                    primaryBorderColor: '#E91E63',
+                    lineColor: '#009688',
+                    secondaryColor: '#FFC107',
+                    tertiaryColor: '#9575CD'
+                },
+                flowchart: {
+                    cornerRadius: 15,
+                    curve: 'cardinal',
+                    htmlLabels: true
+                }
+            });
+        });
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: '"Segoe UI", "Hiragino Sans", sans-serif';
+            background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
+            color: #2C3E50;
+            line-height: 1.8;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4CAF50 0%, #009688 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 5px;
+        }
+        
+        .main-content {
+            padding: 40px;
+        }
+        
+        section {
+            margin-bottom: 50px;
+        }
+        
+        section h2 {
+            font-size: 1.8em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #FFC107;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .icon {
+            font-size: 1.3em;
+            display: inline-block;
+        }
+        
+        section h3 {
+            font-size: 1.3em;
+            color: #009688;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 4px solid #E91E63;
+        }
+        
+        .concept-box {
+            background: linear-gradient(135deg, #F1F8E9 0%, #E0F2F1 100%);
+            border-left: 5px solid #4CAF50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-size: 1.05em;
+            font-weight: 500;
+            color: #1B5E20;
+        }
+        
+        .theme-box {
+            background: linear-gradient(135deg, #FCE4EC 0%, #F8BBD0 100%);
+            border-left: 5px solid #E91E63;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            color: #880E4F;
+            font-weight: 500;
+        }
+        
+        .example-box {
+            background: linear-gradient(135deg, #FFF9C4 0%, #FCE4EC 100%);
+            border-left: 5px solid #FFC107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            color: #5D4037;
+            font-size: 0.95em;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .card {
+            background: white;
+            border: 2px solid #E8F5E9;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .card:hover {
+            border-color: #4CAF50;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
+        }
+        
+        .card h4 {
+            color: #009688;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+        
+        .card p {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        
+        .technique-card {
+            background: linear-gradient(135deg, #E1F5FE 0%, #E0F2F1 100%);
+            border-left: 5px solid #009688;
+            padding: 18px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-size: 0.95em;
+        }
+        
+        .technique-card strong {
+            color: #00695C;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .diagram-box {
+            background: #FAFAFA;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+        
+        .key-point {
+            display: flex;
+            gap: 15px;
+            background: linear-gradient(135deg, #E3F2FD 0%, #F3E5F5 100%);
+            padding: 18px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 5px solid #9575CD;
+        }
+        
+        .key-point-icon {
+            font-size: 1.8em;
+            flex-shrink: 0;
+        }
+        
+        .key-point-text {
+            color: #4A148C;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+        
+        .boundary-visual {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            background: linear-gradient(90deg, #FFF3E0 0%, #E8F5E9 50%, #FCE4EC 100%);
+            border-radius: 8px;
+        }
+        
+        .boundary-item {
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .boundary-arrow {
+            font-size: 1.5em;
+            color: #FF6F00;
+            font-weight: bold;
+        }
+        
+        .parallel-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+            align-items: start;
+        }
+        
+        .parallel-item {
+            background: #FAFAFA;
+            padding: 18px;
+            border-radius: 8px;
+            border: 2px solid #E0E0E0;
+        }
+        
+        .parallel-item h4 {
+            color: #009688;
+            margin-bottom: 12px;
+            font-size: 1em;
+        }
+        
+        .parallel-item p {
+            color: #555;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        
+        .viewer-choice {
+            background: linear-gradient(135deg, #F1F8E9 0%, #E0F2F1 100%);
+            border: 2px solid #4CAF50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .viewer-choice h4 {
+            color: #1B5E20;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .viewer-options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .option-badge {
+            background: white;
+            border: 2px solid #4CAF50;
+            color: #1B5E20;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .option-badge.both {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .soundscape-info {
+            background: linear-gradient(135deg, #E0E0FF 0%, #F3E5F5 100%);
+            border-left: 5px solid #7C4DFF;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            color: #4A148C;
+            font-size: 0.95em;
+        }
+        
+        .soundscape-info strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        footer {
+            background: #F5F5F5;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            font-size: 0.9em;
+            border-top: 1px solid #E0E0E0;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2, .parallel-section {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 1.6em;
+            }
+            
+            section h2 {
+                font-size: 1.4em;
+            }
+            
+            .boundary-visual {
+                flex-direction: column;
+            }
+        }
+        
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌉 内と外の境界を溶かす</h1>
+            <p>AI×人間・現実×デジタル・個人×社会の共演</p>
+            <p style="font-size: 0.95em; margin-top: 15px;">命輝く未来社会デザイン：体験を通じて「競争」ではなく「共演」を感じる</p>
+        </header>
+        
+        <div class="main-content">
+            
+            <!-- セクション1：制作コンセプト -->
+            <section>
+                <h2><span class="icon">💭</span> 制作の本質：「間」の表現</h2>
+                
+                <div class="theme-box">
+                    <strong>🎯 中心テーマ</strong><br>
+                    人とAI、現実とデジタル、男と女、個人と社会...「明確に分かれているもの」の合間をどう表現するか。その「間」こそが、今から生まれる世界の本質。
+                </div>
+                
+                <h3>🔀 内と外をシームレスにつなぐ</h3>
+                <p>万博というフォーマットでは、パビリオンと外部は通常「断絶」している。建築的には内と外が分かれている。しかし今回、その境界を音響と空気感で溶かす試みを行った。</p>
+                
+                <div class="concept-box">
+                    <strong>言語化プロセス</strong><br>
+                    制作終了後も、言語化を続けていく。曖昧だったコンセプトが、時間とともに徐々に固まっていく。「これって何なのか」という問いが、何度も反復されることで初めて明確になる。
+                </div>
+            </section>
+            
+            <!-- セクション2：音響設計の戦略 -->
+            <section>
+                <h2><span class="icon">🔊</span> サウンドスケープ：環境との同期</h2>
+                
+                <h3>🌍 現地調査と音楽の決定</h3>
+                <p>音楽選定は、実際に現地に行くまで決まらなかった。現地に到着して初めて「空気」を感じることができるから。</p>
+                
+                <div class="soundscape-info">
+                    <strong>サウンドスケープとは</strong><br>
+                    環境音楽的な音響環境。万博会場全体のお祭りっぽい雰囲気、周囲で流れる音、混雑感...そうした「音の風景」と共存できる音楽を選定した。
+                </div>
+                
+                <h3>⏱️ 時間的な流れ：静寂から高揚へ</h3>
+                <div class="example-box">
+                    <strong>構成の工夫：</strong><br>
+                    1. 静かな音楽から始まる（周囲のガヤガヤから徐々に静へ）<br>
+                    2. 観者はシームレスに体験へ引き込まれる<br>
+                    3. 中盤で高揚していく<br>
+                    4. 最後に緩やかに終わる
+                </div>
+                
+                <div class="key-point">
+                    <div class="key-point-icon">🎵</div>
+                    <div class="key-point-text">
+                        <strong>音響的な境界の消融</strong><br>
+                        パビリオンの内と外を分ける音響的な断絶を解消。気づいた時には、観者が無意識に内側へ引き込まれている。
+                    </div>
+                </div>
+            </section>
+            
+            <!-- セクション3：ビジュアル表現 -->
+            <section>
+                <h2><span class="icon">🎨</span> イメージの発露と拡張</h2>
+                
+                <h3>👧 主人公の頭の中を言語化する</h3>
+                <p>冒頭の女性キャラクターが「頭の中」で何かを思考している。その表現方法として、本木さんの『カムイ』を参照。</p>
+                
+                <div class="technique-card">
+                    <strong>🧠 ノード生成の視覚化</strong><br>
+                    思考が生成される瞬間をキャプチャー。カムイからノード生成シーンを引用し、イメージが次々と展開・膨張する様を表現。
+                </div>
+                
+                <h3>🌟 複数の創作者による共創</h3>
+                <p>主人公の頭の中から発生したイメージは、一人の想像ではない。複数のアーティストの作品へと変化していく。</p>
+                
+                <div class="example-box">
+                    <strong>視覚的な展開：</strong><br>
+                    白石さんの絵→未来さんの絵→あかりさんの絵→オーロラさんの絵...同じプロンプトから生成されたAIアートが、全く異なるスタイルで現れる。
+                </div>
+                
+                <div class="viewer-choice">
+                    <h4>🔄 境界の消融：生成物と創作者</h4>
+                    <div class="viewer-options">
+                        <div class="option-badge">AIの生成</div>
+                        <div class="boundary-arrow">→</div>
+                        <div class="option-badge">複数の可能性</div>
+                        <div class="boundary-arrow">→</div>
+                        <div class="option-badge both">どちらでもある</div>
+                    </div>
+                </div>
+                
+                <div class="concept-box">
+                    <strong>重要な問い</strong><br>
+                    「同じ言葉を入力したら、オーロラさんみたいな絵も出るし、ハクスさんみたいな絵も出るし...」その時点で、「誰の作品か」という境界はなくなる。
+                </div>
+            </section>
+            
+            <!-- セクション4：映像技術 -->
+            <section>
+                <h2><span class="icon">🌐</span> 映像生成と「生成」の再定義</h2>
+                
+                <h3>💻 360度CG宇宙の構築</h3>
+                <div class="technique-card">
+                    <strong>制作プロセス</strong><br>
+                    プログラムで360度の画像を複数枚生成 → プログラミングで宇宙空間を構築 → その空間を「ぐりぐり」動かす → キャプチャーを取得
+                </div>
+                
+                <div class="example-box">
+                    <strong>「生成動画」ではないもの：</strong><br>
+                    このアプローチは「生成動画」ではない。むしろ、生成物（CG）を素材として、その上で新たな映像体験を「構築」している。
+                </div>
+                
+                <div class="key-point">
+                    <div class="key-point-icon">🎬</div>
+                    <div class="key-point-text">
+                        <strong>「生成」の多層性</strong><br>
+                        生成動画と言えば生成動画だが、言わば生成動画ではない。定義の曖昧さこそが、今のデジタル表現の本質。
+                    </div>
+                </div>
+            </section>
+            
+            <!-- セクション5：人間とAIの共演 -->
+            <section>
+                <h2><span class="icon">👥</span> 共演 vs 競争：新しいナラティブ</h2>
+                
+                <h3>❌ 「AIと人間の競争」という誤解</h3>
+                <p>よく語られる「AIと人間の競争」という説明は、実は曖昧で不十分。AIアートを見せて「これはAIです」と言うだけでは、何も伝わらない。</p>
+                
+                <div class="example-box">
+                    <strong>問題点：</strong><br>
+                    キャプションで説明するだけでは、本質的な理解は生まれない。「だから何？」という疑問が残る。
+                </div>
+                
+                <h3>✅ 「体験」による理解</h3>
+                <p>今回の作品では、説明ではなく「体験」で理解させる。</p>
+                
+                <div class="parallel-section">
+                    <div class="parallel-item">
+                        <h4>🤖 AI（デジタル）</h4>
+                        <p>画面に映るAIモデルが、同じ動きをしている</p>
+                    </div>
+                    <div class="parallel-item">
+                        <h4>👤 人間（フィジカル）</h4>
+                        <p>舞台上の実人が、同じ動きをしている</p>
+                    </div>
+                </div>
+                
+                <div class="concept-box">
+                    <strong>同時出現の効果</strong><br>
+                    AIとヒトが並んで「同じようなことをしている」のを見た時、初めて「あ、これは共演だ」と一発で理解できる。説明不要。体験による直感的な理解。
+                </div>
+            </section>
+            
+            <!-- セクション6：主役の曖昧性 -->
+            <section>
+                <h2><span class="icon">❓</span> 「主役は誰か」という問い</h2>
+                
+                <h3>🎭 実在する人物とAIの同時出現</h3>
+                <p>後半、実在する人物がパビリオンに現れ、AIの人物と同じような動きや説明をしている。</p>
+                
+                <div class="viewer-choice">
+                    <h4>👀 観者によって異なる認識</h4>
+                    <div class="viewer-options">
+                        <div class="option-badge">AIに注目する人</div>
+                        <div class="boundary-arrow">+</div>
+                        <div class="option-badge">人間に注目する人</div>
+                        <div class="boundary-arrow">→</div>
+                        <div class="option-badge both">全員が同じ体験ではない</div>
+                    </div>
+                </div>
+                
+                <div class="theme-box">
+                    <strong>🎯 デザイナーの答え</strong><br>
+                    「主役は誰か？」という問いに対して、自分の答えは：「どちらも主役。どちらも主役ではない。」<br><br>
+                    観者一人ひとりが、異なる答えを導き出す。その多様な答えこそが、「命輝く未来社会デザイン」の本質。
+                </div>
+            </section>
+            
+            <!-- セクション7：衣装表現 -->
+            <section>
+                <h2><span class="icon">👗</span> 衣装による可能性の表現</h2>
+                
+                <h3>🎨 異なる衣装=異なる未来</h3>
+                <p>複数の衣装をまとったAIモデルが登場する。一つ一つの衣装が異なるのは、技術デモンストレーションではなく、メッセージを持っている。</p>
+                
+                <div class="concept-box">
+                    <strong>📖 衣装の多重性</strong><br>
+                    一人の人物は、歩み方によっていろんな未来を持ちうる。衣装そのものが「人生の選択肢」「未来の方向性」を象徴している。
+                </div>
+                
+                <div class="example-box">
+                    <strong>視覚的メタファー：</strong><br>
+                    同じ人物が異なる衣装で現れることは、同じAIが異なるコンテクストで存在することを表す。一人ではなく、無限の可能性を秘めた存在。
+                </div>
+            </section>
+            
+            <!-- セクション8：ズームイン・ズームアウト -->
+            <section>
+                <h2><span class="icon">🔍</span> 個人と社会の往復運動</h2>
+                
+                <h3>🏘️ コンテクストの重層性</h3>
+                <p>映像は複数のコミュニティを舞台にしている：家族、友人、職場、社会...各レイヤーでのつながりを表現。</p>
+                
+                <div class="boundary-visual">
+                    <div class="boundary-item">社会</div>
+                    <div class="boundary-arrow">↔</div>
+                    <div class="boundary-item">コミュニティ</div>
+                    <div class="boundary-arrow">↔</div>
+                    <div class="boundary-item">個人</div>
+                </div>
+                
+                <div class="example-box">
+                    <strong>個人の孤立性：</strong><br>
+                    どれだけ家族と時間を過ごしても、最後は一人で寝る。友達と遊びに行っても、結局は一人。どのコミュニティにいても、最後に行き着く先は「自分自身」。
+                </div>
+                
+                <div class="technique-card">
+                    <strong>🔬 ズームイン・ズームアウト</strong><br>
+                    社会→個人→社会と繰り返し往復。その中で「内と外」の定義が曖昧になっていく。コミュニティに属しながらも、最終的には一人。その矛盾を視覚化。
+                </div>
+            </section>
+            
+            <!-- セクション9：消失と再出現 -->
+            <section>
+                <h2><span class="icon">🌀</span> 消失と再生：無限ループ</h2>
+                
+                <h3>🫧 「ヌルに帰る」という表現</h3>
+                <p>AI人物が舞台から消えていく。お茶用地的に見えるが、実は「データの消失」を象徴している。</p>
+                
+                <div class="concept-box">
+                    <strong>循環構造</strong><br>
+                    消失した人物がまた現れる。その時、実在する人物が同じように登場。「何度も繰り返される」という体験を通じて、現実とデジタルの反復性を感じさせる。
+                </div>
+                
+                <div class="viewer-choice">
+                    <h4>🎪 観者の問い</h4>
+                    <div class="viewer-options">
+                        <div class="option-badge">どちらが「本物」か</div>
+                        <div class="boundary-arrow">→</div>
+                        <div class="option-badge both">その問い自体が無意味</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- セクション10：パラレルワールド -->
+            <section>
+                <h2><span class="icon">🌌</span> パラレルワールドの同時体験</h2>
+                
+                <h3>🗺️ 複数の未来への遍歴</h3>
+                <p>作品全体として、観者は複数の「場所」を行き来する。それはパラレルワールドではないが、複数の可能性を同時体験している。</p>
+                
+                <div class="diagram-box">
+                    <div class="mermaid">
+                        graph TD
+                            A["個人の思考<br/>頭の中の映像"] --> B["社会との接続<br/>コミュニティ経由"]
+                            B --> C["複数の未来"]
+                            C --> D["選択肢①"]
+                            C --> E["選択肢②"]
+                            C --> F["選択肢③"]
+                            D --> G["でも最終的に<br/>選ぶのは自分"]
+                            E --> G
+                            F --> G
+                            G --> H["アウトプット<br/>自分の行動"]
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <strong>サムネイル（最後の画像）への収束</strong><br>
+                    複数の未来を巡った後、すべては最後の一枚の画像に収束される。それは、観者自身が「何を選んだか」という決定を象徴している。
+                </div>
+            </section>
+            
+            <!-- セクション11：AIと人間の根本的な共演 -->
+            <section>
+                <h2><span class="icon">🤝</span> 「競争」ではなく「共演」の本質</h2>
+                
+                <h3>🎬 共演の同期性</h3>
+                <p>AIと人間が「同じタイミングで同じようなことをしている」という同期が、全てを物語る。</p>
+                
+                <div class="concept-box">
+                    <strong>📝 制作者からのメッセージ</strong><br>
+                    「AIと人間の競争」という単純な二項対立ではなく、「当たり前のようにAIが存在する時代」における、人とAIの自然な混在を表現している。
+                </div>
+                
+                <div class="theme-box">
+                    <strong>🌍 現代への問い</strong><br>
+                    人とAIが自然に混ざり合う社会において、「私たちが今できることは何か」<br><br>
+                    その答えは、多様性の中にある。それぞれが異なる答えを導き出すことが、真の「命輝く未来社会デザイン」である。
+                </div>
+            </section>
+            
+            <!-- セクション12：270度投影空間 -->
+            <section>
+                <h2><span class="icon">🎪</span> 270度投影による空間設計</h2>
+                
+                <h3>🌐 投影空間の統合戦略</h3>
+                <p>建築的には内と外が断絶しているパビリオンを、270度の映像投影で「境界を失わせる」空間に変える。</p>
+                
+                <div class="technique-card">
+                    <strong>🖼️ 映像が滲み合う設計</strong><br>
+                    270度すべてにスクリーンが配置され、映像相互が「滲み合い」「境界を失う」設計になっている。観者は、映像の「縁」を意識させられない360度的な体験を得る。
+                </div>
+                
+                <div class="example-box">
+                    <strong>空間的な没入感：</strong><br>
+                    単なる投影ではなく、複数の映像層が重なり合い、どこから見ても「ここ」という場所感が生まれない。その曖昧さが、内と外の境界消失を具現化する。
+                </div>
+            </section>
+            
+            <!-- セクション13：制作過程における変化 -->
+            <section>
+                <h2><span class="icon">🔄</span> コンセプトの演化：制作から完成まで</h2>
+                
+                <h3>📊 当初案からの変化</h3>
+                <p>映像制作の途上で、当初のコンセプトは変わっていく。それは失敗ではなく、より深い理解へ至る過程。</p>
+                
+                <div class="parallel-section">
+                    <div class="parallel-item">
+                        <h4>🎯 当初のコンセプト</h4>
+                        <p>AIと人間の対比を明確に示す</p>
+                    </div>
+                    <div class="parallel-item">
+                        <h4>✨ 進化後のコンセプト</h4>
+                        <p>AIと人間の「中間」「共演」の状態を体験させる</p>
+                    </div>
+                </div>
+                
+                <div class="concept-box">
+                    <strong>🔍 継続的な言語化</strong><br>
+                    完成後も、「これって何だったのか」という問いを反復。その反復を通じて、曖昧だったコンセプトが徐々に固まっていく。制作は「終わり」ではなく「言語化の始まり」。
+                </div>
+            </section>
+            
+            <!-- セクション14：統合的な体験デザイン -->
+            <section>
+                <h2><span class="icon">🎨</span> ゲザムトクンストベルクの現代化</h2>
+                
+                <h3>🏛️ 建築×音響×映像の再統合</h3>
+                <p>1958年ブリュッセル万博のフィリップス館が実現した「どれ一つ欠けても成立しない完全統合」を、現代的に再解釈している。</p>
+                
+                <div class="diagram-box">
+                    <div class="mermaid">
+                        graph TD
+                            A["パビリオンの建築"] -.建築では<br/>分離-.-> B["内と外の断絶"]
+                            C["270度映像投影"] -->|空間を統一| D["視覚的な没入"]
+                            E["サウンドスケープ"] -->|環境と同期| F["聴覚的な融合"]
+                            G["AIと人間の共演"] -->|同時体験| H["認識的な混在"]
+                            
+                            D --> I["🎯 境界の消融"]
+                            F --> I
+                            H --> I
+                            I --> J["ゲザムトクンストベルク<br/>の現代実装"]
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    <div class="key-point-icon">🔗</div>
+                    <div class="key-point-text">
+                        <strong>現代版の完全統合</strong><br>
+                        建築では分離したまま、映像・音響・人間表現で「内と外を溶かす」。不可能を、デジタル技術と体験デザインで実現。
+                    </div>
+                </div>
+            </section>
+            
+            <!-- セクション15：多様性の本質 -->
+            <section>
+                <h2><span class="icon">🌈</span> 「命輝く未来社会」における多様性</h2>
+                
+                <h3>💫 各自の異なる答えが、デザイン</h3>
+                <p>この作品に「正解」はない。観者が何に注目するか、何を感じるかによって、体験は完全に変わる。</p>
+                
+                <div class="viewer-choice">
+                    <h4>👀 同じ作品でも見方は千差万別</h4>
+                    <div class="viewer-options">
+                        <div class="option-badge">AIに注目</div>
+                        <div class="option-badge">人間に注目</div>
+                        <div class="option-badge">映像美に注目</div>
+                        <div class="option-badge">音響に注目</div>
+                        <div class="option-badge both">全てが「正しい」</div>
+                    </div>
+                </div>
+                
+                <div class="theme-box">
+                    <strong>🎯 多様性の実装</strong><br>
+                    その多様な「個別の解釈」「個別の感動」こそが、最終的には「社会全体のデザイン」を形作る。<br><br>
+                    つまり、観者一人ひとりの異なる答えが、全体として「命輝く未来社会デザイン」を構成している。
+                </div>
+            </section>
+            
+            <!-- セクション16：「制作」の先へ -->
+            <section>
+                <h2><span class="icon">🚀</span> 制作物がもたらすもの</h2>
+                
+                <h3>📢 AIアートのリテラシー</h3>
+                <p>「AIで出たやつを見せて『これAIです』と言うだけでは、何も伝わらない」という批評精神は、作品全体を貫いている。</p>
+                
+                <div class="example-box">
+                    <strong>現状への違和感：</strong><br>
+                    「AI vs 人間の競争」と単純に語られることへの疑問。「だからどうした？」という根本的な問いが、この作品の原点。
+                </div>
+                
+                <div class="concept-box">
+                    <strong>🔬 体験による理解の深化</strong><br>
+                    説明ではなく体験。見ればわかる。AIと人間が同じことをしているのを見た瞬間、「これは共演だ」と直感的に理解できる。
+                </div>
+                
+                <h3>🌟 後の世代へのレガシー</h3>
+                <p>大阪万博のマルチスクリーン、筑波万博の3D映像...それらが数十年後の日常に根付いたように、この作品も何かしらのレガシーを遺すかもしれない。</p>
+                
+                <div class="legacy-box">
+                    <strong>📖 検証の継続性</strong><br>
+                    「5年後、10年後に『あの作品があったね』と言えたら大成功」<br><br>
+                    完成度の高さではなく、「継承されるか」が真の成功の指標。
+                </div>
+            </section>
+            
+            <!-- セクション17：まとめ -->
+            <section>
+                <h2><span class="icon">🎬</span> 結論：境界を溶かすということ</h2>
+                
+                <h3>🌉 内と外の統合</h3>
+                <div class="diagram-box">
+                    <div class="mermaid">
+                        graph TD
+                            A["明確に分かれたもの"] --> B["人 vs AI"]
+                            A --> C["現実 vs デジタル"]
+                            A --> D["男 vs 女"]
+                            A --> E["個 vs 社"]
+                            
+                            B --> F["その『間』を体験"]
+                            C --> F
+                            D --> F
+                            E --> F
+                            
+                            F --> G["どちらでもない<br/>どちらでもある<br/>という感覚"]
+                            
+                            G --> H["多様な個別解釈"]
+                            H --> I["🌈 命輝く<br/>未来社会デザイン"]
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    <div class="key-point-icon">💡</div>
+                    <div class="key-point-text">
+                        <strong>最終的な答え</strong><br>
+                        「内と外の境界を溶かす」ことは、社会的な統合を意味しない。むしろ、その曖昧さ、不確定性、複数性を受け入れることが、これからの社会デザインの本質。
+                    </div>
+                </div>
+                
+                <h3>🎯 体験からの学び</h3>
+                <p>この作品は「何か」を強制的に伝えるメディアではない。観者がそれぞれ、「自分にとって何か」を感じ、解釈し、語り継ぐことで初めて完成する。</p>
+                
+                <div class="theme-box">
+                    <strong>🌍 これからの万博表現へ</strong><br>
+                    技術デモンストレーション的な「AIの凄さ」ではなく、「AIと人間が共在する世界で、何が生まれるのか」を問う表現。<br><br>
+                    その問いに答えるのは、制作者ではなく、各観者自身である。
+                </div>
+            </section>
+            
+        </div>
+        
+        <footer>
+            <p>🎬 制作：音響×映像×AIの統合表現 / テーマ：「命輝く未来社会デザイン」</p>
+            <p style="margin-top: 10px; font-size: 0.85em;">境界を溶かす、ことで初めて見える世界がある。</p>
+        </footer>
+    </div>
+</body>
+</html>

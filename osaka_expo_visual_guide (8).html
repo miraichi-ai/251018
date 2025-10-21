@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コンセプトデザイン - 構造・思想・文脈</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background-color: #FAFAFA;
+            color: #333;
+            line-height: 1.8;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4CAF50 0%, #009688 100%);
+            color: #333;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #4CAF50;
+        }
+        
+        section h2 {
+            color: #4CAF50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .subsection {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            border-left: 4px solid #9575CD;
+        }
+        
+        .subsection h3 {
+            color: #9575CD;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        
+        .subsection p {
+            color: #555;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+        
+        .subsection ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .subsection li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        .highlight-box {
+            background-color: #FFC107;
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .info-card {
+            background: linear-gradient(135deg, #E91E63 0%, #9575CD 100%);
+            color: #333;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .info-card strong {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+        
+        .mermaid-container {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+        
+        .quote-block {
+            border-left: 5px solid #FFC107;
+            padding-left: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #666;
+            background-color: #fffef5;
+            padding: 15px 20px;
+            border-radius: 5px;
+        }
+        
+        .concept-box {
+            background: linear-gradient(135deg, #E91E63 0%, #009688 100%);
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .three-pillars {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .pillar {
+            background: linear-gradient(135deg, #4CAF50 0%, #009688 100%);
+            color: #333;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .pillar h4 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .pillar p {
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        
+        footer {
+            background-color: #4CAF50;
+            color: #333;
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'base',
+                securityLevel: 'loose',
+                fontFamily: 'sans-serif',
+                themeVariables: {
+                    primaryColor: '#4CAF50',
+                    primaryTextColor: '#333',
+                    primaryBorderColor: '#009688',
+                    lineColor: '#34BFBF',
+                    secondaryColor: '#FFC107',
+                    tertiaryColor: '#E91E63'
+                },
+                flowchart: {
+                    cornerRadius: 15,
+                    curve: 'cardinal',
+                    htmlLabels: true
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 コンセプトデザイン</h1>
+            <p>構造・思想・文脈——映像表現を支える3本の柱</p>
+        </header>
+        
+        <!-- スライド内容1 -->
+        <section>
+            <h2>構造（どう体験させるか）</h2>
+            
+            <div class="subsection">
+                <h3>結論：内と外の境界を溶解させる円環的体験</h3>
+                <p>観客が「内と外」「人とAI」の間を体験するように設計された円環的な人体験。EXPOホールという360度の円形投影空間を活かし、映像・音・身体知覚を同調させることで「境界が溶ける」感覚を誘発する。</p>
+            </div>
+            
+            <div class="subsection">
+                <h3>具体例：体験設計の層構造</h3>
+                <ul>
+                    <li><strong>物理的構造：</strong>360度円形投影空間</li>
+                    <li><strong>感覚的同調：</strong>映像・音・身体知覚の共鳴</li>
+                    <li><strong>心理的転換：</strong>外の騒音から内の静寂へ、そして再び解放へ</li>
+                    <li><strong>最終体験：</strong>来場者が気づかぬうちに「中と外の境界線がなくなる」状態</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- スライド内容2 -->
+        <section>
+            <h2>思想（何を問うのか）</h2>
+            
+            <div class="subsection">
+                <h3>結論：「人とAIの関係性」を再定義する問い</h3>
+                <p>「人とAIの関係はどのようにいるのちを再定義するのか」という問い立て。これはポストヒューマニズムの「人間中心設計の解体」と、トランスヒューマニズムの「人間と技術の融合」の両方の視点を含む。</p>
+            </div>
+            
+            <div class="subsection">
+                <h3>背景：ポストヒューマニズム vs トランスヒューマニズム</h3>
+                <p>万博テーマ「命輝く未来社会デザイン」は、この両方の思想をガチャンコした状態。今回の映像もこのテーマに沿いながら、従来の「人間が中心」という前提を問い直す。AIで何かを作ることは、単なる技術ではなく、人間とは何かを問い直す哲学的行為。</p>
+            </div>
+            
+            <div class="concept-box">
+                哲学的問い：「人とAIの関係」「命とは何か」「社会の設計とは何か」
+            </div>
+        </section>
+        
+        <!-- スライド内容3 -->
+        <section>
+            <h2>文脈（なぜ今ここでなのか）</h2>
+            
+            <div class="subsection">
+                <h3>結論：AI時代初期の万博という歴史的瞬間</h3>
+                <p>2025年の大阪関西万博は、複数の観点から極めて特殊な時間軸に位置している。「日本が元気なうちにできる最後の一般博」であり、同時に「AI時代の最初の万博」であり、さらに「人力でできる最後の万博」でもある。</p>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <strong>🇯🇵 国家的文脈</strong>
+                    日本の経済的余力の最後の発現
+                </div>
+                <div class="info-card">
+                    <strong>🤖 技術的文脈</strong>
+                    AI時代の幕開けの瞬間
+                </div>
+                <div class="info-card">
+                    <strong>👥 人力的文脈</strong>
+                    人間が主導できる最後の大規模イベント
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3>具体例：韓国パビリオンとの対比</h3>
+                <p>他のパビリオン（例：韓国）では、単純にAI動画生成を用いた映像を展示している。しかし問題は「なぜそれをやるのか」という問いがない。技術があるから使う、ではなく、「今この瞬間に、なぜAIを使う必要があるのか」という問い立てがなければ、作品は成立しない。</p>
+            </div>
+        </section>
+        
+        <!-- 3本の柱の統合 -->
+        <section>
+            <h2>3本の柱の統合</h2>
+            
+            <div class="three-pillars">
+                <div class="pillar">
+                    <h4>構造</h4>
+                    <p>どう体験させるのか<br><br>内と外の融解</p>
+                </div>
+                <div class="pillar">
+                    <h4>思想</h4>
+                    <p>何を問うのか<br><br>人とAIの再定義</p>
+                </div>
+                <div class="pillar">
+                    <h4>文脈</h4>
+                    <p>なぜ今ここで<br><br>AI時代初期</p>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                ⚡ この3つのうち、どれか一つでも欠けたら、コンセプトは成立しない
+            </div>
+            
+            <div class="subsection">
+                <h3>結論：不完全な状態での言語化の重要性</h3>
+                <p>コンセプトデザインの過程では、完全にまとまった形での発表ができない。最初は「全然まとまりがない」状態。しかし、その過程で「なぜこれなのか」を言えるようにすることが重要。AIで情報を得ても、3～4回のファクトチェック、文献確認を通じて、自分の知識として叩き込む必要がある。</p>
+            </div>
+        </section>
+        
+        <!-- セクション：情報量の統合 -->
+        <section>
+            <h2>情報量の統合：100の情報から1つの形へ</h2>
+            
+            <div class="subsection">
+                <h3>結論：圧倒的な情報量から、シンプルな表現へ</h3>
+                <p>映像制作の過程では、約100の情報源・視点を統合している。万博とは何か、その複数の定義——国家発揚、人間社会の在り方、祝祭性、環境問題、映像史など。これらの全てを内包しながら、シンプルな表現に圧縮する。</p>
+            </div>
+            
+            <div class="mermaid-container">
+                <div class="mermaid">
+                    graph TB
+                        A["複数の万博の定義"] --> B["国家発揚"]
+                        A --> C["人間中心的視点"]
+                        A --> D["祝祭"]
+                        A --> E["環境問題"]
+                        A --> F["映像史"]
+                        A --> G["哲学的視点"]
+                        
+                        B --> H["約100の情報源"]
+                        C --> H
+                        D --> H
+                        E --> H
+                        F --> H
+                        G --> H
+                        
+                        H --> I["コンセプト<br/>デザイン"]
+                        
+                        I --> J["シンプルな<br/>映像表現"]
+                        
+                        style I fill:#FFC107,color:#333
+                        style J fill:#4CAF50,color:#333
+                    </div>
+            </div>
+            
+            <div class="subsection">
+                <h3>背景：視点の多面性</h3>
+                <p>ヒューマニズム、トランスヒューマニズム、ポストヒューマニズムなど、複数の哲学的視点がある。これらを全て把握した上で、今回は「ポストヒューマニズム」（人間中心設計の解体）の視点から映像を構成している。</p>
+            </div>
+            
+            <div class="subsection">
+                <h3>例え話：自分の言葉として「さらっと」言える状態</h3>
+                <p>AIから得た情報そのものではなく、それをファクトチェック、文献確認し、頭の中で「叩き込む」ことで初めて、自分の知識になる。そして「なぜあの瞬間あれなんですか」と聞かれた時、「これはこれなんです」とさらっと言えることが重要。Notionなどのナレッジデータベースに頼らず、全て頭の中に入れておくことが、本物の理解につながる。</p>
+            </div>
+        </section>
+        
+        <!-- セクション：みんなで作る万博 -->
+        <section>
+            <h2>みんなで作る万博——共創の重要性</h2>
+            
+            <div class="subsection">
+                <h3>結論：参加することに意味がある</h3>
+                <p>岡本太郎の言葉「お祭りは見に行くことではなく、参加することに意味がある」。万博市民と呼ばれるほど、屈強な参加者たちが作る万博。今回の映像も「一人のAI × 複数の人間」ではなく「複数の人間 × 複数のAI」による新しい化学反応を重視している。</p>
+            </div>
+            
+            <div class="subsection">
+                <h3>具体例：化学反応としての競争</h3>
+                <p>従来の「競争」は「一人の人間が複数のAIを使う」という形。しかし本当の価値は「複数の人間と複数のAIが協働して、新しい化学反応を起こすこと」。映像制作では、参加者から提供された画像を「要所要所で」受け取り、その思いを映像に形にすることで、初めて価値が生まれる。</p>
+            </div>
+            
+            <div class="highlight-box">
+                🎨 単純に「綺麗な映像」「ストーリーがある動画」ではなく、集団の思いが込められた共創作品
+            </div>
+            
+            <div class="subsection">
+                <h3>背景：伝統と革新の融合</h3>
+                <p>エンディング映像では、大学生たちが実写で映像を撮影し、その思いを受け取る形で制作されている。これは「伝統（人間の営み）」と「革新（AI技術）」の融合を象徴している。</p>
+            </div>
+        </section>
+        
+        <!-- セクション：デザインプロセス -->
+        <section>
+            <h2>コンセプトデザインの方法論</h2>
+            
+            <div class="subsection">
+                <h3>結論：過去→現在→未来の往復運動</h3>
+            </div>
+            
+            <div class="mermaid-container">
+                <div class="mermaid">
+                    graph LR
+                        A["🔍 過去を振り返る<br/>新しい素材がいっぱい"] --> B["📍 現在地を認識<br/>2025年10月18日"]
+                        B --> C["🚀 未来を予想<br/>技術成長曲線"]
+                        C --> D["↩️ 現在に戻る<br/>何をするべきか"]
+                        
+                        style A fill:#9575CD,color:#333
+                        style B fill:#FFC107,color:#333
+                        style C fill:#E91E63,color:#333
+                        style D fill:#4CAF50,color:#333
+                    </div>
+            </div>
+            
+            <div class="subsection">
+                <h3>背景：過去が「古い」のではなく「素材に満ちている」</h3>
+                <p>多くの人は過去を「古いもの」と見なす。しかし実は、過去には「新しい素材がいっぱい転がっている」。万博映像史を辿ることで、1967年から現在までの進化を理解し、その成長曲線から未来を予想する。</p>
+            </div>
+            
+            <div class="subsection">
+                <h3>具体例：予想が外れても大丈夫</h3>
+                <p>この予想プロセスは「外れていい」。むしろ、技術が日々進化している現代では「大体当たる」。予想を外すことで恥ずかしくなる必要もない。重要なのは「言うこと」「表現すること」。その過程で初めて、次のコンセプトが生まれる。</p>
+            </div>
+        </section>
+        
+        <footer>
+            <p>🎯 構造 × 思想 × 文脈 = コンセプトデザイン</p>
+            <p>📚 100の情報から、1つのシンプルな表現へ</p>
+            <p>🤝 みんなで作る、AI時代の新しい創造</p>
+        </footer>
+    </div>
+</body>
+</html>

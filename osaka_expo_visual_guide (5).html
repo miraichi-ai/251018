@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIヒローズコレクション映像制作の思想</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Kaisei Decol', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
+            color: #333;
+            line-height: 1.8;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(76, 175, 80, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4CAF50 0%, #009688 100%);
+            color: #333;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, #FAFAFA 0%, #F0F8F0 100%);
+            border-left: 6px solid #4CAF50;
+            border-radius: 12px;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+        
+        .icon {
+            font-size: 1.5em;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .subsection {
+            margin-top: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #9575CD;
+        }
+        
+        .subsection-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #4CAF50;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .subsection-content {
+            color: #555;
+            margin-top: 10px;
+            font-size: 1em;
+            line-height: 1.7;
+        }
+        
+        .key-point {
+            background: linear-gradient(90deg, #FFC107 0%, #FFD54F 100%);
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #333;
+            font-weight: 600;
+            border-left: 4px solid #E91E63;
+        }
+        
+        .info-box {
+            background: linear-gradient(90deg, #E3F2FD 0%, #F1F8E9 100%);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #333;
+            border-left: 4px solid #009688;
+        }
+        
+        .concept-box {
+            background: linear-gradient(90deg, #F3E5F5 0%, #FCE4EC 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #333;
+            border-left: 4px solid #9575CD;
+        }
+        
+        .layer-diagram {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .layer {
+            background: linear-gradient(90deg, #81C784 0%, #A5D6A7 100%);
+            padding: 16px;
+            margin: 8px 0;
+            border-radius: 6px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .layer-2 {
+            background: linear-gradient(90deg, #64B5F6 0%, #90CAF9 100%);
+            margin-left: 20px;
+        }
+        
+        .layer-3 {
+            background: linear-gradient(90deg, #FFD54F 0%, #FFEB99 100%);
+            margin-left: 40px;
+        }
+        
+        .flow-diagram {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .design-principle {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 5px solid #4CAF50;
+        }
+        
+        .principle-title {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .principle-content {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #f0f4ff 0%, #f0fff4 100%);
+            padding: 30px 40px;
+            text-align: center;
+            border-top: 2px solid #E0E0E0;
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        .challenge-box {
+            background: linear-gradient(90deg, #FFEBEE 0%, #FCE4EC 100%);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #333;
+            border-left: 4px solid #E91E63;
+        }
+        
+        ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'base',
+                securityLevel: 'loose',
+                fontFamily: '"Kaisei Decol", sans-serif',
+                themeVariables: {
+                    primaryColor: '#4CAF50',
+                    primaryTextColor: '#333',
+                    primaryBorderColor: '#9575CD',
+                    lineColor: '#009688',
+                    secondaryColor: '#FFC107',
+                    tertiaryColor: '#E91E63'
+                },
+                flowchart: {
+                    cornerRadius: 15,
+                    curve: 'cardinal',
+                    htmlLabels: true
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 AIヒローズコレクション</h1>
+            <p>映像制作の思想 ─ 技術的社会的挑戦の具現化</p>
+        </div>
+        
+        <div class="content">
+            <!-- セクション1: 制約条件の理解 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📏</span>
+                    <span>制約条件下での最適化</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">📦</span>
+                        <span>パビリオンという既存フォーマット</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>制約の現実：</strong><br>
+                        • パビリオン（建築空間）がすでに存在<br>
+                        • 空間フォーマットが決定済み<br>
+                        • ChatGPTのような「制約なし」ではない<br>
+                        <br>
+                        <strong>制作課題：</strong><br>
+                        → その「箱」に最適化した映像・表現を設計する必要がある
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🎯 制約 = 創造性の源泉。その中にこそ真の工夫がある
+                </div>
+            </div>
+            
+            <!-- セクション2: 万博の本質的な課題 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🌉</span>
+                    <span>万博における根本的な課題：「内と外の断絶」</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">❓</span>
+                        <span>万博会場の構造的問題</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>指摘された課題：</strong><br>
+                        万博会場は「一つの繋がり場」として存在するが、<br>
+                        パビリオンに入った瞬間、外の世界と断絶された空間になってしまう<br>
+                        <br>
+                        <strong>結果：</strong> 没入体験と外界との乖離
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">✅</span>
+                        <span>解決例：オチアイオイチ（Ochiai Ōichi）</span>
+                    </div>
+                    <div class="subsection-content">
+                        ヌルヌルした外観で、外の世界との「繋がり感」を保持<br>
+                        内部体験が外界と一体化する設計
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🌎</span>
+                        <span>ブラジル館の工夫</span>
+                    </div>
+                    <div class="subsection-content">
+                        中と外のつながりを「シームレスに感じさせる」設計<br>
+                        → このアプローチをAIヒローズコレクションのオープニングに応用
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🌐 「内と外をシームレスにつなぐ」が制作の重要な指針
+                </div>
+            </div>
+            
+            <!-- セクション3: 映像の本質 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📚</span>
+                    <span>映像史の本質：「技術的・社会的挑戦の歴史」</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🔍</span>
+                        <span>過去の万博映像が示すもの</span>
+                    </div>
+                    <div class="subsection-content">
+                        モントリオール（1967）から愛知万博（2005）までは、<br>
+                        単なる「技術的進化」ではなく、<br>
+                        <strong>社会的課題にどう応答するか</strong>という挑戦の記録
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🤖</span>
+                        <span>AI時代における社会的挑戦</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>問い：</strong> AIで映像を作ることは「悪いこと」なのか？<br>
+                        <strong>逆問い：</strong> 今のこの時代で、できる最大値は何か？<br>
+                        <br>
+                        → 技術的・社会的挑戦の両立を目指すテーマ
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🎯 AIは「技術」ではなく「社会的挑戦」の素材
+                </div>
+            </div>
+            
+            <!-- セクション4: 映像制作の実プロセス -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🎼</span>
+                    <span>映像制作のプロセス：音楽決定の工夫</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🎵</span>
+                        <span>音楽選定の困難</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>初期段階：</strong> 音楽を「想定」で決定<br>
+                        <strong>実際：</strong> 現地到着後、「空気感」を感じてから再決定<br>
+                        <br>
+                        <strong>理由：</strong> サウンドスケープ（環境音響）が重要<br>
+                        → 万博の「祭りっぽさ」や周囲の音響環境を体感して、初めて適切な音が判断できる
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🔄</span>
+                        <span>制作内容の変化</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>重要な気付き：</strong><br>
+                        映像制作は「一度決めたら完成」ではなく、<br>
+                        環境との相互作用の中で常に調整される
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    💡 <strong>制作哲学：</strong><br>
+                    理論で決めたものを現地で検証し、実際の環境と対話しながら洗練させる
+                </div>
+            </div>
+            
+            <!-- セクション5: コンセプト -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🌀</span>
+                    <span>映像のコンセプト：「境界の溶解」</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">📝</span>
+                        <span>言語化されたテーマ</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>表現する「間」：</strong><br>
+                        • 人 ↔ AI<br>
+                        • 内 ↔ 外<br>
+                        • 人 ↔ 機械<br>
+                        • 男 ↔ 女<br>
+                        <br>
+                        <strong>「はっきり分かれているもの」の中間を表現する</strong>
+                    </div>
+                </div>
+                
+                <div class="concept-box">
+                    <strong>核心的なテーマ：</strong><br>
+                    <br>
+                    「境界が溶け合う世界」<br>
+                    「お互いが浸透していく未来」<br>
+                    <br>
+                    → つまり、二項対立ではなく、<br>
+                    相互に混ざり合い、一体化していく状態を表現
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🎯</span>
+                        <span>観客への問いかけ</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>社会的課題：</strong><br>
+                        AIが当たり前に存在する時代において、<br>
+                        人とAIが自然に混ざり合う社会で、<br>
+                        <br>
+                        <strong>「私たちが今できることって何か？」</strong><br>
+                        <br>
+                        この問いを観客に感じてもらうことが目的
+                    </div>
+                </div>
+            </div>
+            
+            <!-- セクション6: 映像空間設計 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🎬</span>
+                    <span>映像空間の設計：270度投影</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">📐</span>
+                        <span>270度スクリーン投影の意味</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>技術仕様：</strong> 270度の範囲に映像を投影<br>
+                        <strong>効果：</strong> 観客の視野を「ほぼ全周」でカバー<br>
+                        <br>
+                        <strong>デザイン目標：</strong><br>
+                        映像等々が相互に「滲み合って」境界を失うような設計
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🌐 映像そのものが「相互浸透」を体現する
+                </div>
+            </div>
+            
+            <!-- セクション7: 音響設計 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🔊</span>
+                    <span>音響設計：「シームレスな境界消滅」</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🔇</span>
+                        <span>静寂で始まる戦略的意味</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>背景：</strong><br>
+                        前後のイベントは賑やかなので、<br>
+                        AIを使った表現は「どうしても地味になる」リスク<br>
+                        <br>
+                        <strong>戦略：</strong> 「最高の地味」で開始<br>
+                        <br>
+                        <strong>重要な前提：</strong><br>
+                        「メタバースと同じ土台に立たない」という大前提
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🌊</span>
+                        <span>音響フロー：「波のような時間構造」</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>来場のタイミング：</strong><br>
+                        ガヤガヤした外部 → 徐々に静かに → 静寂で始まる<br>
+                        <br>
+                        <strong>この「シームレスな流れ」が意図的に設計される</strong><br>
+                        <br>
+                        <strong>時間構造：</strong><br>
+                        静寂 → 徐々に激しく → 最後は緩やかに終わる<br>
+                        <br>
+                        <strong>効果：</strong><br>
+                        いつの間にか「中と外の境界線が消えた」という体験
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🌀 音響そのものが「境界消滅」のメタファー
+                </div>
+            </div>
+            
+            <!-- セクション8: 映像ナラティブ -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">👧</span>
+                    <span>映像ナラティブ：少女のイメージ世界</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🧠</span>
+                        <span>冒頭の少女の言葉</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>表現手法：</strong> 少女の「頭の中」を言語化<br>
+                        <strong>参考作品：</strong> 本木克禮の『カムイ』で使用されたテクニック<br>
+                        <br>
+                        <strong>実装：</strong><br>
+                        メインスクリーンの映像 = カムイのキャプチャーから引用
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">✨</span>
+                        <span>イメージの発露と拡張</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>ノード生成の瞬間：</strong><br>
+                        カムイ映像から抽出される<br>
+                        <br>
+                        <strong>イメージの展開：</strong><br>
+                        • 白石さんの絵<br>
+                        • 未来さんの絵<br>
+                        • 明かりさんの絵<br>
+                        • オロラさんの絵<br>
+                        <br>
+                        → どんどん「いろんな人の絵」へ膨らんでいく
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🌈</span>
+                        <span>「彼女の頭の中」の解体</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>複層的な読み方：</strong><br>
+                        「実は彼女の頭の中ではある」<br>
+                        <br>
+                        <strong>しかし同時に：</strong><br>
+                        生成物は「同じ言葉を入れたら」<br>
+                        • 大和さんみたいな絵も出る<br>
+                        • 白石さんみたいな絵も出る<br>
+                        <br>
+                        <strong>結論：</strong> 「個人の内部」と「生成される無限の可能性」の境界がない
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🌀 「個人」という概念そのものが境界を失う
+                </div>
+            </div>
+            
+            <!-- セクション9: 技術的な複雑さ -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🖥️</span>
+                    <span>技術的な曖昧性：「動画か非動画か」</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">⚙️</span>
+                        <span>空間生成とキャプチャの工程</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>制作プロセス：</strong><br>
+                        1. プログラムで360度の画像を複数生成<br>
+                        2. プログラミングで宇宙空間を構築<br>
+                        3. その空間を「ぐりぐり動かす」<br>
+                        4. キャプチャーを撮影<br>
+                        <br>
+                        <strong>重要：</strong> 「生成動画ではなく、生成物」
+                    </div>
+                </div>
+                
+                <div class="concept-box">
+                    <strong>カテゴリの曖昧性：</strong><br>
+                    <br>
+                    「動画と言えば動画」<br>
+                    「動画ではないと言えば動画ではない」<br>
+                    <br>
+                    → つまり、既存のカテゴリが通用しない作品
+                </div>
+                
+                <div class="key-point">
+                    🌀 「ジャンルの境界も溶ける」ことが表現になっている
+                </div>
+            </div>
+            
+            <!-- セクション10: 空間表現 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🌍</span>
+                    <span>空間表現：つながりの多層性</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🔄</span>
+                        <span>ズームイン・ズームアウト構造</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>表現対象：</strong><br>
+                        • 家族内の関係<br>
+                        • 職場のコミュニティ<br>
+                        • 友人関係<br>
+                        • その他多様なコミュニティ<br>
+                        <br>
+                        <strong>視点の移動：</strong><br>
+                        「内と外」「内と外」...と繰り返して、<br>
+                        多層的な繋がりを表現
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">👤</span>
+                        <span>個人の孤独性</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>矛盾的な真実：</strong><br>
+                        • 家族といても、寝るときは一人<br>
+                        • 友達と遊んでも、最後は一人<br>
+                        • 最終的には、必ず一人になる<br>
+                        <br>
+                        <strong>この「孤独性」も同時に表現される</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- セクション11: AIモデルと多重性 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🤖</span>
+                    <span>複数衣装AIモデルが示すもの</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">👗</span>
+                        <span>衣装の多様性</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>一人のAIモデルが異なる衣装を着用</strong><br>
+                        <br>
+                        <strong>技術的メッセージ：</strong><br>
+                        「AIでこんなことができる」という可能性の提示<br>
+                        <br>
+                        <strong>哲学的メッセージ：</strong><br>
+                        「一人の人物は、歩み方によっていろんな未来がある」
+                    </div>
+                </div>
+                
+                <div class="concept-box">
+                    <strong>個性と多重性の同時存在：</strong><br>
+                    <br>
+                    衣装の違い = 可能性の分岐<br>
+                    <br>
+                    → 同じ個人であっても、<br>
+                    環境や選択によって異なる未来が存在する
+                </div>
+            </div>
+            
+            <!-- セクション12: 制作思想のまとめ -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🎯</span>
+                    <span>制作思想の全体像</span>
+                </div>
+                
+                <div class="layer-diagram">
+                    <div class="layer">
+                        📌 基盤：AI時代における社会的課題
+                    </div>
+                    <div class="layer layer-2">
+                        🎨 表現層：「境界の溶解」というテーマ
+                    </div>
+                    <div class="layer layer-3">
+                        🎬 実装層：映像・音響・空間設計の統合
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">✨</span>
+                        <span>総合的な狙い</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>技術的側面：</strong><br>
+                        AIでどこまで表現できるか、その限界と可能性を示す<br>
+                        <br>
+                        <strong>社会的側面：</strong><br>
+                        AIが当たり前になる社会で、人間として何ができるか問い直す<br>
+                        <br>
+                        <strong>美学的側面：</strong><br>
+                        「内と外」「個と全」「人とAI」の境界が消える体験を創造
+                    </div>
+                </div>
+            </div>
+            
+            <!-- セクション13: 過去との対話 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🔗</span>
+                    <span>万博映像史との対話</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">📜</span>
+                        <span>歴史的系譜の継承</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>大阪万博（1970）：</strong> 総重量380kgのカメラシステム<br>
+                        <strong>筑波万博（1985）：</strong> 3D眼鏡とドームスクリーン<br>
+                        <strong>愛知万博（2005）：</strong> イマーシャルパノラマと動的コンテンツ<br>
+                        <br>
+                        <strong>大阪関西万博（2025）：</strong><br>
+                        ゲザムトクンストベルク + 生成AI技術<br>
+                        <br>
+                        → 「技術的・社会的挑戦」の系譜は途切れない
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🌉 過去の創意工夫があるから、現在の「当たり前」がある
+                </div>
+            </div>
+            
+            <!-- セクション14: 映像を見ながら考えること -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">👁️</span>
+                    <span>映像体験中の思考プロセス</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🔄</span>
+                        <span>複層的な読み込み</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>映像を見ながら：</strong><br>
+                        • 技術的な工夫に気づく<br>
+                        • 空間表現の工夫に気づく<br>
+                        • 音響設計に気づく<br>
+                        <br>
+                        <strong>同時に：</strong><br>
+                        • 「個と全」の関係を考える<br>
+                        • 「人とAI」の未来を想像する<br>
+                        • 「内と外」の境界について問い直す
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    💡 <strong>観客への呼びかけ：</strong><br>
+                    「映像を見ながら話ができるといいんですけど」<br>
+                    → つまり、完成された鑑賞ではなく、<br>
+                    思考過程そのものが作品の一部
+                </div>
+            </div>
+            
+            <!-- セクション15: オープニングとしての役割 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🎬</span>
+                    <span>なぜオープニングなのか</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🚪</span>
+                        <span>境界移行の演出</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>来場者のはじめの体験：</strong><br>
+                        賑やかな万博会場<br>
+                        ↓<br>
+                        静寂から始まる映像<br>
+                        ↓<br>
+                        徐々に激しくなり、緩やかに終わる<br>
+                        <br>
+                        <strong>この全体が「内と外の境界消滅」を表現</strong>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🎭</span>
+                        <span>プログラム構成としての意味</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>その後のプログラム：</strong> エンディング映像があり、さらに語り部がいる<br>
+                        <br>
+                        <strong>オープニングの役割：</strong><br>
+                        → 観客の意識を「問題系」へ導く入口<br>
+                        → 以降のプログラム全体の思想的基盤を設定
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🎯 オープニング映像は「問題設定」であり、「思考の始まり」
+                </div>
+            </div>
+            
+            <!-- セクション16: 継続的な言語化 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🗣️</span>
+                    <span>「完成」後の言語化プロセス</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">📖</span>
+                        <span>言語化の継続</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>重要な指摘：</strong><br>
+                        映像は「作って終わり」ではなく、<br>
+                        <strong>終わった後も言語化が続く</strong><br>
+                        <br>
+                        <strong>プロセス：</strong><br>
+                        制作 → 展示 → 対話 → 言語化 → コンセプトの洗練<br>
+                        <br>
+                        → 「だんだん固まってきた」というプロセスが重要
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    💡 <strong>制作哲学の変化：</strong><br>
+                    「作品は完成したら完成」ではなく、<br>
+                    社会との相互作用の中で意味が生成され続ける
+                </div>
+            </div>
+            
+            <!-- セクション17: 最終的な指向 -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🌟</span>
+                    <span>「当たり前」への転換</span>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="icon">🎯</span>
+                        <span>制作の最終目標</span>
+                    </div>
+                    <div class="subsection-content">
+                        <strong>現在：</strong> AIで映像を作ることは「特殊」<br>
+                        <strong>目標：</strong> AIで映像を作ることが「当たり前」に<br>
+                        <br>
+                        <strong>そのプロセスで必要なもの：</strong><br>
+                        • 技術的挑戦（何ができるか）<br>
+                        • 社会的対話（何をすべきか）<br>
+                        • 美学的実装（どう感じさせるか）<br>
+                        <br>
+                        → この3つすべてが揃ったとき、<br>
+                        はじめて「新しい文化」として定着する
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    🌈 AIヒローズコレクションは、その「転換期」を示す作品
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🎬 この図解は、AIヒローズコレクション映像制作における思想的背景と技術的実装を解説したものです。</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">過去の万博映像史との対話の中で、「人とAI」「内と外」「個と全」の境界を溶かす新しい表現が生まれる。</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">📺 オープニング映像：X（旧Twitter）で公開予定 | 📽️ 各リンクは講演資料に記載</p>
+        </div>
+    </div>
+</body>
+</html>
+                    
